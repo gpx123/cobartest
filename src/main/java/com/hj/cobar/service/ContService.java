@@ -1,6 +1,7 @@
 package com.hj.cobar.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.hj.cobar.bean.Cont;
 import com.hj.cobar.common.Result;
@@ -66,4 +67,8 @@ public interface ContService {
 	 * @return
 	 */
 	public List<Cont> getContList(ContQuery contQuery);
+
+	public List<Map<String,Object>> groupContList();
+
+	public List<Map<String, Object>> groupContList2();
 }

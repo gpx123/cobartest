@@ -3,6 +3,7 @@ package com.hj.cobar.service.impl;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import org.apache.commons.logging.Log;
@@ -113,6 +114,16 @@ public class ContServiceImpl implements ContService {
 			log.error("get Cont list error." + e.getMessage(), e);
 		}
 		return Collections.emptyList();
+	}
+
+	@Override
+	public List<Map<String, Object>> groupContList() {
+		return contDAO.groupContList();
+	}
+
+	@Override
+	public List<Map<String, Object>> groupContList2() {
+		return contDAO.groupContList2();
 	}
 
 }

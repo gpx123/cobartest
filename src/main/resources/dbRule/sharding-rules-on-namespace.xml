@@ -30,5 +30,10 @@
 		<shardingExpression>hash.apply(taobaoId) == 2</shardingExpression>
 		<shards>partition2</shards>
 	</rule>
+	<rule>
+		<namespace>Cont</namespace>
+		<shardingExpression>true</shardingExpression>
+		<shards>partition0,partition1,partition2</shards>
+	</rule>
 	
 </rules>

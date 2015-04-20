@@ -124,9 +124,20 @@
 			</list>
 		</property>
 	</bean>
-<!-- 配置路由规则结束 -->  
-  
-  	<!-- 事务配置 -->
+<!-- 配置路由规则结束 -->
+
+	<!-- 配置action二次检索开始 -->
+	<bean id="internalSecond"
+		  class="com.alibaba.cobar.client.seconder.config.CobarSeconderXmlFactoryBean">
+		<property name="configLocations">
+			<list>
+				<value>classpath:/dbRule/seconding-conf-on-namespace.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 配置action二次检索结束 -->
+
+	<!-- 事务配置 -->
     <bean id="transactionManager" class="com.alibaba.cobar.client.transaction.MultipleDataSourcesTransactionManager">
         <property name="cobarDataSourceService" ref="dataSources"/>
     </bean>
@@ -148,6 +159,7 @@
 		<property name="sqlMapClient" ref="sqlMapClient" />
 		<property name="cobarDataSourceService" ref="dataSources" />
 		<property name="router" ref="internalRouter" />
+		<property name="seconder" ref="internalSecond"/>
 		<property name="sqlAuditor">
 			<bean class="com.alibaba.cobar.client.audit.SimpleSqlAuditor" />
 		</property>

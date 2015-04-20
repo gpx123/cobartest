@@ -126,4 +126,14 @@ public class ContDAO {
 				"Cont.getContList", contQuery);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> groupContList() {
+		return (List<Map<String,Object>>)this.sqlMapClientTemplate.queryForList("Cont.groupContList");
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> groupContList2() {
+		return (List<Map<String,Object>>)this.sqlMapClientTemplate.queryForList("Cont.groupContList2");
+	}
+
 }

@@ -4,11 +4,16 @@
 	<!-- Alias Map Defined -->
 	<typeAlias alias="ContQuery" type="com.hj.cobar.query.ContQuery" />
 	<typeAlias alias="Cont" type="com.hj.cobar.bean.Cont" />
+	<typeAlias alias="GroupVo" type="com.hj.cobar.bean.GroupVo" />
 	<resultMap id="cont" class="Cont">
 		<result property="id" column="id" />
 		<result property="taobaoId" column="taobaoId" />
 		<result property="name" column="name" />
 		<result property="updTime" column="upd_time" />
+	</resultMap>
+	<resultMap id="groupRes" class="java.util.HashMap">
+		<result property="c" column="c" javaType="java.lang.Integer" />
+		<result property="name" column="name" />
 	</resultMap>
 	<!-- Select SQL -->
 	<sql id="cont.selector">
@@ -129,6 +134,12 @@
 		<include refid="cont.selector" />
 		<include refid="contList.where" />
 		<include refid="contList.order" />
+	</select>
+	<select id="Cont.groupContList" parameterClass="ContQuery" resultMap="groupRes">
+		select count(1) as c ,name from cont  group by name;
+	</select>
+	<select id="Cont.groupContList2" parameterClass="ContQuery" resultClass="GroupVo">
+		select count(1) as c ,name from cont  group by name;
 	</select>
 
 	<!-- 如果使用自定义字段查询,则要使用resultClass否则会出现异常 -->

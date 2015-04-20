@@ -1,18 +1,23 @@
 package com.hj.cobar;
 
+import com.alibaba.cobar.client.util.SqlUtil;
 import com.hj.cobar.bean.Cont;
 import com.hj.cobar.bean.Order;
 import com.hj.cobar.query.ContQuery;
 import com.hj.cobar.query.OrderQuery;
 import com.hj.cobar.service.ContService;
 import com.hj.cobar.service.OrderService;
-import org.mvel2.MVEL;
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.select.Select;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -38,10 +43,10 @@ public class AppTest extends AbstractTestNGSpringContextTests {
     /**
      * 测试添加
      */
-	@Test
+	@Test(invocationCount=1000,threadPoolSize=5)
     public void test2(){
     	Cont cont = new Cont();
-    	cont.setName("gd");
+		cont.setName("gd"+String.valueOf(new Random().nextInt(10)));
     	Long taobaoId = new Long(new Random().nextInt(10000));
     	System.out.println("#"+taobaoId);
     	cont.setTaobaoId(taobaoId);
@@ -75,13 +80,37 @@ public class AppTest extends AbstractTestNGSpringContextTests {
 	/**
 	 * 测试添加
 	 */
-	@Test
+	@Test(invocationCount=1000,threadPoolSize=5)
 	public void test5(){
 		Order order = new Order();
-		order.setName("gd");
+		order.setName("gd" + String.valueOf(new Random().nextInt(10)));
 		Long taobaoId = new Long(new Random().nextInt(10000));
 		System.out.println("#"+taobaoId);
 		order.setTaobaoId(taobaoId);
 		orderService.addOrder(order);
+	}
+
+	/**
+	 * 测试group by
+	 */
+	@Test
+	public void test6(){
+		ContQuery query = new ContQuery();
+		query.setNameLike(true);
+		query.setName("4");
+		List<Cont> list = contService.getContList(query);
+		System.out.println(list.size());
+	}
+
+	@Test
+	public void test7(){
+		List<Map<String, Object>> list = contService.groupContList();
+		System.out.println(list.size());
+	}
+
+	@Test
+	public void test8(){
+		List<Map<String, Object>> list = contService.groupContList2();
+		System.out.println(list.size());
 	}
 }
