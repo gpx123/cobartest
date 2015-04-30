@@ -9,5 +9,10 @@
 		<namespace>Cont.groupContList2</namespace>
 		<sql>select sum(c) as c , name from $tableName$ group by name</sql>
 	</seconding>
+
+	<seconding>
+		<namespace>Order.getOrderList</namespace>
+		<sql>select sum(id) as id , name from $tableName$ group by name</sql>
+	</seconding>
 	
 </secondings>

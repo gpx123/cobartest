@@ -16,6 +16,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -112,5 +113,17 @@ public class AppTest extends AbstractTestNGSpringContextTests {
 	public void test8(){
 		List<Map<String, Object>> list = contService.groupContList2();
 		System.out.println(list.size());
+	}
+
+	@Test
+	public void test9(){
+		OrderQuery orderQuery = new OrderQuery();
+		orderQuery.setNameLike(true);
+		orderQuery.setName("4");
+		orderQuery.setFragmentList(new Date(),"-2,0");
+		List<Order> list = orderService.getOrderList(orderQuery);
+		if(list != null){
+			System.out.println(list.get(0));
+		}
 	}
 }
